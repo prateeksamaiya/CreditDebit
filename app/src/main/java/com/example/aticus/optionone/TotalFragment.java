@@ -60,7 +60,7 @@ public class TotalFragment extends Fragment implements EditText.OnEditorActionLi
             }
             else
             {
-                databaseAdapter.insert(Integer.parseInt(amount.getText().toString()));
+                databaseAdapter.insert(amount.getText().toString());
             }
 
         }
