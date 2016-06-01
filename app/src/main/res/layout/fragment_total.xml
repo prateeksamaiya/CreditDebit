@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.aticus.optionone.TotalFragment">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:inputType="numberDecimal"
+        android:maxLength="6"
+        android:id="@+id/inputAmount"
+        android:imeOptions="actionDone"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:hint="Enter Refill Amount"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
