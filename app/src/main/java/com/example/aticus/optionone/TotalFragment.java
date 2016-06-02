@@ -48,7 +48,7 @@ public class TotalFragment extends Fragment implements EditText.OnEditorActionLi
 
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
     {
-
+//
 
         if (actionId == EditorInfo.IME_ACTION_DONE)
         {
@@ -58,9 +58,13 @@ public class TotalFragment extends Fragment implements EditText.OnEditorActionLi
 
                 Toast.makeText(getActivity(), "Enter Some Input", Toast.LENGTH_SHORT).show();
             }
-            else
+            else if(amount.getText().toString().matches("((\\d+)|([+-]\\d+))([+-]\\d+)*"))
             {
                 databaseAdapter.insert(amount.getText().toString());
+            }
+            else
+            {
+                Toast.makeText(getActivity(), "Input Not In Proper Format", Toast.LENGTH_SHORT).show();
             }
 
         }

@@ -21,6 +21,8 @@ public class DatabaseAdapter {
     ContentValues contentValues;
     SQLiteDatabase pointer;
     String temporary = "";
+    long flag;
+    char[] transaction;
 
 
     public Context context;
@@ -33,52 +35,44 @@ public class DatabaseAdapter {
         DatabaseManagement db = new DatabaseManagement(context);
         pointer = db.getWritableDatabase();
         contentValues = new ContentValues();
-        char[] transaction = amount.toCharArray();
+        transaction = amount.toCharArray();
 
-        for (char x : transaction)
+        for (int k=0;k<transaction.length;k++)
         {
-            contentValues.put(Column_type, Credit);
-            if (x != '+' && x != '-')
-                temporary = temporary + x;
-            if (x == '-' && !temporary.matches("")) {
-                int f = decisionInsertion(Debit, temporary);
-                if (f == 1)
-                    break;
-
+            switch (transaction[k])
+            {
+                case '+':contentValues.put(Column_type,Credit);
+                         k=EntrySeperator(++k);break;
+                case '-':contentValues.put(Column_type,Debit);
+                         k=EntrySeperator(++k);break;
+                default:contentValues.put(Column_type,Credit);
+                        k=EntrySeperator(k);break;
             }
-
-
-            if (x == '+' && !temporary.matches("")) {
-                int f = decisionInsertion(Credit, temporary);
-                if (f == 1)
-                    break;
-            }
-
         }
+        if(flag==-1)
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(context,"data inserted",Toast.LENGTH_SHORT).show();
 
 
     }
 
-    int decisionInsertion(short type, String temp) {
-        contentValues.put(Column_amount, temp);
-        long flag = pointer.insert(TABLE_NAME, null, contentValues);
-        if (flag == -1) {
-            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-            return 1;
-
-        } else {
-            Toast.makeText(context, "Data Inserted", Toast.LENGTH_SHORT).show();
-            this.temporary = "";
-            contentValues.clear();
-            if (type == 1)
-                type = 0;
-            else
-                type = 1;
-            contentValues.put(Column_type, type);
-            return 0;
-
-
+    int EntrySeperator(int i)
+    {
+        String temp="";
+        while(transaction[i]!='+' && transaction[i]!='-') {
+            temp=temp+transaction[i];
+            if(i==transaction.length-1)
+                break;
+             i++;
         }
+        contentValues.put(Column_amount,temp);
+        flag=pointer.insert(TABLE_NAME,null,contentValues);
+        Toast.makeText(context,temp+contentValues.get(Column_type),Toast.LENGTH_SHORT).show();
+        contentValues.clear();
+        if(flag==-1||transaction.length-1==i)
+            return transaction.length+1;
+        return i-1;
     }
 
 }
