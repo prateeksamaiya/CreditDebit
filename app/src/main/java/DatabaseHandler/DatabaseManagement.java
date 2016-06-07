@@ -16,7 +16,7 @@ public class DatabaseManagement extends SQLiteOpenHelper {
     private static final String Column_id="_id";
     private static final String Column_amount="_amount";
     private static final String Column_date="_date";
-    private String Column_type="_type";
+    private static String Column_type="_type";
     private Context context;
 
     public DatabaseManagement(Context context) {

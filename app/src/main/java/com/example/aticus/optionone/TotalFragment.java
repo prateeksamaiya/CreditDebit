@@ -61,6 +61,7 @@ public class TotalFragment extends Fragment implements EditText.OnEditorActionLi
             else if(amount.getText().toString().matches("((\\d+)|([+-]\\d+))([+-]\\d+)*"))
             {
                 databaseAdapter.insert(amount.getText().toString());
+                amount.setText("");
             }
             else
             {

@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar= (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true );
-        NavigationDrawerFragment fragment= (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_drawer_navigation);
-        fragment.setUp((DrawerLayout)findViewById(R.id.drawer_layout),toolbar);
+       /* NavigationDrawerFragment fragment= (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_drawer_navigation);
+        fragment.setUp((DrawerLayout)findViewById(R.id.drawer_layout),toolbar);*/
        //
       /*  contentFragment fragment=new contentFragment();
        // NavigationDrawerFragment fragment= new NavigationDrawerFragment();
