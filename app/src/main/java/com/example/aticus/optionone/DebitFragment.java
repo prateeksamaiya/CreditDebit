@@ -46,7 +46,7 @@ public class DebitFragment extends Fragment{
         Cursor c= databaseAdapter.showDebitRecord();
         listCursorAdapteristAdapter=new MyListCursorAdapter(getActivity(),c);
         //recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
-        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE));
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE,getActivity()));
         recyclerView.setAdapter(listCursorAdapteristAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

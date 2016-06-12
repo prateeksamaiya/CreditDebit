@@ -55,4 +55,5 @@ public class MyListItem{
         myListItem.type=cursor.getShort(3);
         return myListItem;
     }
+
 }

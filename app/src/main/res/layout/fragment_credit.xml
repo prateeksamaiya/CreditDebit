@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECECEC"
     android:orientation="vertical"
     tools:context="com.example.aticus.optionone.CreditFragment">
 
@@ -10,7 +11,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/credit_recyclerView"
-
+        android:scrollbars="vertical"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>

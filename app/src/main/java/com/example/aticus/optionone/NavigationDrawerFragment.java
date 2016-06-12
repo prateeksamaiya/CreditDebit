@@ -51,11 +51,12 @@ public class NavigationDrawerFragment extends Fragment {
         adapter = new MyAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListner(getActivity(), recyclerView, new ClickListener()
-        {
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListner(getActivity(), recyclerView, new ClickListener() {
 
             @Override
             public void onClick(View v, int position) {
+
+                Toast.makeText(getActivity(),"single",Toast.LENGTH_SHORT).show();
 
             }
 
@@ -63,7 +64,8 @@ public class NavigationDrawerFragment extends Fragment {
             public void onLongClick(View v, int position) {
 
             }
-        })) ;
+        }));
+
         return layout;
     }
 
@@ -105,27 +107,20 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
 
-
-   class RecyclerTouchListner implements RecyclerView.OnItemTouchListener {
+    class RecyclerTouchListner implements RecyclerView.OnItemTouchListener {
         private GestureDetector gestureDetector;
         private ClickListener clickListener;
 
-        public RecyclerTouchListner(Context context, final RecyclerView recyclerView, final ClickListener clickListener)
-        {
-            this.clickListener=clickListener;
-            Log.i("prateek","constructer RecyclerTouchListener called");
-            gestureDetector =new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+        public RecyclerTouchListner(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
+            this.clickListener = clickListener;
+            Log.i("prateek", "constructer RecyclerTouchListener called");
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override
 
-                public boolean onSingleTapUp(MotionEvent e)
-                {
-                    Log.i("prateek","constructer OnSingleTapUp called");
-                    View child=recyclerView.findChildViewUnder(e.getX(),e.getY());
-                    if(child!=null && clickListener!=null && gestureDetector.onTouchEvent(e))
-                    {
-                        clickListener.onClick(child,recyclerView.getChildAdapterPosition(child));
-                    }
-                    Log.i("prateek","constructer OnInterceptTouchEvent called");
+                public boolean onSingleTapUp(MotionEvent e) {
+
+                    Log.i("prateek", "constructer OnSingleTapUp called");
+
 
                     return true;
 
@@ -134,12 +129,11 @@ public class NavigationDrawerFragment extends Fragment {
 
                 @Override
                 public void onLongPress(MotionEvent e) {
-                    View child=recyclerView.findChildViewUnder(e.getX(),e.getY());
-                    if(child!=null && clickListener!=null)
-                    {
-                        clickListener.onLongClick(child,recyclerView.getChildAdapterPosition(child));
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildAdapterPosition(child));
                     }
-                    Log.i("prateek","constructer OnLongPress called");
+                    Log.i("prateek", "constructer OnLongPress called");
 
                     super.onLongPress(e);
                 }
@@ -149,25 +143,32 @@ public class NavigationDrawerFragment extends Fragment {
         @Override
         public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
 
+            View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildAdapterPosition(child));
+                Toast.makeText(getActivity(),"pratee",LENGTH_SHORT).show();
+            }
+            Log.i("prateek", "constructer OnInterceptTouchEvent called");
+
             return false;
         }
 
         @Override
         public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-            Log.i("prateek","constructer OnTouchEvent called");
+            Log.i("prateek", "constructer OnTouchEvent called");
 
         }
 
         @Override
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-            Log.i("prateek","constructer OnRequestDisallowIntercept called");
+            Log.i("prateek", "constructer OnRequestDisallowIntercept called");
 
         }
     }
 
-    public static interface ClickListener
-    {
-        public void onClick(View v,int position);
-        public void onLongClick(View v,int position);
+    public static interface ClickListener {
+        public void onClick(View v, int position);
+
+        public void onLongClick(View v, int position);
     }
 }

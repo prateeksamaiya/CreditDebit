@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar= (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true );
-       /* NavigationDrawerFragment fragment= (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_drawer_navigation);
+       /*NavigationDrawerFragment fragment= (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_drawer_navigation);
         fragment.setUp((DrawerLayout)findViewById(R.id.drawer_layout),toolbar);*/
        //
       /*  contentFragment fragment=new contentFragment();
@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     class MyPagerAdapter extends FragmentStatePagerAdapter
     {
+
         String[] tabs;
         public MyPagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
@@ -99,10 +100,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 fragment= new TotalFragment();
             }
-            if (position==2)
-            {
-                fragment= new DebitFragment();
-            }
+
             if(position==1)
             {
                 fragment=new CreditFragment();
@@ -119,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount()
         {
-            return 3;
+            return 2;
         }
     }
 }

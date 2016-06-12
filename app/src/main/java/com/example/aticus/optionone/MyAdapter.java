@@ -47,6 +47,8 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.MyViewHolder>
         holder.listIcon.setImageResource(current.getIconId());
     }
 
+
+
     @Override
     public int getItemCount() {
 

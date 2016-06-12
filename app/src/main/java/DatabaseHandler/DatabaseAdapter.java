@@ -22,8 +22,8 @@ public class DatabaseAdapter {
     private static final String Column_amount = "_amount";
     private static final String Column_date = "_date";
     private static String Column_type = "_type";
-    private short Credit = 0;
-    private short Debit = 1;
+    private static short Credit = 0;
+    private static short Debit = 1;
     ContentValues contentValues;
     static SQLiteDatabase pointer;
     String temporary = "";
@@ -32,14 +32,13 @@ public class DatabaseAdapter {
 
 
     public Context context;
-    private DatabaseManagement db;
+    private static DatabaseManagement db;
 
 
     public DatabaseAdapter(Context context) {
         this.context = context;
         db = new DatabaseManagement(context);
     }
-
 
 
     public void insert(String amount) {
@@ -69,7 +68,8 @@ public class DatabaseAdapter {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(context, "data inserted", Toast.LENGTH_SHORT).show();
-            CreditFragment.updateAdapter();
+
+        CreditFragment.updateAdapter();
 
 
     }
@@ -90,26 +90,70 @@ public class DatabaseAdapter {
         return i - 1;
     }
 
-    public Cursor showCreditRecord() {
+    public static Cursor showCreditRecord() {
 
         pointer = db.getWritableDatabase();
         String[] columns = {Column_id, Column_amount, Column_date, Column_type};
 
-        Cursor c = pointer.query(TABLE_NAME, columns,TABLE_NAME+"."+Column_type+"="+Credit, null, null, null, Column_id + " desc");
-        String s = "";
-        return c;
-    }
-
-    public Cursor showDebitRecord() {
-
-        pointer = db.getWritableDatabase();
-        String[] columns = {Column_id, Column_amount, Column_date, Column_type};
-
-        Cursor c = pointer.query(TABLE_NAME, columns,TABLE_NAME+"."+Column_type+"="+Debit, null, null, null, Column_id + " desc");
+        Cursor c = pointer.query(TABLE_NAME, columns, TABLE_NAME + "." + Column_type + "=" + Credit, null, null, null, Column_id + " desc");
         String s = "";
         return c;
     }
 
 
+    public static Cursor showAll() {
+
+        pointer = db.getWritableDatabase();
+        String[] columns = {Column_id, Column_amount, Column_date, Column_type};
+
+        Cursor c = pointer.query(TABLE_NAME, columns, null, null, null, null, Column_id + " desc");
+        String s = "";
+        return c;
+    }
+
+    public static Cursor showDebitRecord() {
+
+        pointer = db.getWritableDatabase();
+        String[] columns = {Column_id, Column_amount, Column_date, Column_type};
+
+        Cursor c = pointer.query(TABLE_NAME, columns, TABLE_NAME + "." + Column_type + "=" + Debit, null, null, null, Column_id + " desc");
+        String s = "";
+        return c;
+    }
+
+    public static void delete(long id) {
+
+        pointer = db.getWritableDatabase();
+        pointer.delete(TABLE_NAME,Column_id+"="+id,null);
+        CreditFragment.updateAdapter();
+    }
+    public static long DebitSum() {
+
+        pointer = db.getWritableDatabase();
+        String[] columns = {"sum(" + Column_amount + ")"};
+
+        Cursor c = pointer.query(TABLE_NAME, columns, TABLE_NAME + "." + Column_type + "=" + Debit, null, null, null, null);
+        if (c.moveToFirst()) {
+            long debitsum = c.getInt(0);
+            return debitsum;
+        }
+        return 0;
+
+    }
+
+    public static long CreditSum() {
+
+        pointer = db.getWritableDatabase();
+        String[] columns = {"sum(" + Column_amount + ")"};
+
+        Cursor c = pointer.query(TABLE_NAME, columns, TABLE_NAME + "." + Column_type + "=" + Credit, null, null, null, null);
+        if (c.moveToFirst()) {
+            long creditsum = c.getInt(0);
+            return creditsum;
+        }
+        return 0;
+
+
+    }
 }
 

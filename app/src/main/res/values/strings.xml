@@ -8,8 +8,8 @@
     <string name="Open_close">Close</string>
     <string name="Rs">\u20B9</string>
     <string-array name="tabs">
-        <item>Total</item>
-        <item>Credit</item>
-        <item>Debit</item>
+        <item>Home</item>
+        <item>Assignment</item>
     </string-array>
+    <string name="total">Total :</string>
 </resources>

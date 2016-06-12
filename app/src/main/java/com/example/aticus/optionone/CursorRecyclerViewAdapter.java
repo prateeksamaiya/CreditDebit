@@ -41,7 +41,10 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
     @Override
     public int getItemCount() {
         if (mDataValid && mCursor != null) {
-            return mCursor.getCount();
+            if(mCursor.getCount()==0)
+                return 1;
+            else
+            return mCursor.getCount()+1;
         }
         return 0;
     }
@@ -62,18 +65,22 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         super.setHasStableIds(true);
     }
 
-    public abstract void onBindViewHolder(VH viewHolder, Cursor cursor,int position);
+    public abstract void onBindViewHolder(VH holder, Cursor cursor,int position);
 
     @Override
-    public void onBindViewHolder(VH viewHolder, int position) {
+    public void onBindViewHolder(VH holder, int position) {
+        position=position-1;
+        if(position==-1)
+            position=0;
         if (!mDataValid) {
             throw new IllegalStateException("this should only be called when the cursor is valid");
         }
-        if (!mCursor.moveToPosition(position)) {
-            throw new IllegalStateException("couldn't move cursor to position " + position);
+        if (mCursor.moveToPosition(position)) {
+            onBindViewHolder(holder, mCursor,position);
+            //throw new IllegalStateException("couldn't move cursor to position " + position);
         }
 
-        onBindViewHolder(viewHolder, mCursor,position);
+        onBindViewHolder(holder, mCursor,position);
     }
 
     /**
@@ -82,6 +89,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
      */
     public void changeCursor(Cursor cursor) {
         Cursor old = swapCursor(cursor);
+        notifyItemChanged(0,null);
         if (old != null) {
             old.close();
         }

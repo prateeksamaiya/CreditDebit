@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class DatabaseManagement extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME="CREDITDEBIT";
-    private static final int DATABASE_VERSION=2;
+    private static final int DATABASE_VERSION=5;
     private static final String TABLE_NAME="ACCOUNT";
     private static final String Column_id="_id";
     private static final String Column_amount="_amount";
