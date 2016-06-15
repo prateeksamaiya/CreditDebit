@@ -33,11 +33,13 @@ public class MyListCursorAdapter extends CursorRecyclerViewAdapter<RecyclerView.
     private final Resources res;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
+    static Context context;
 
 
     public MyListCursorAdapter(Context context, Cursor cursor) {
 
         super(context, cursor);
+        this.context=context;
         res = context.getResources();
         rupee = res.getString(R.string.Rs);
     }
@@ -90,6 +92,7 @@ public class MyListCursorAdapter extends CursorRecyclerViewAdapter<RecyclerView.
 
         public ItemHeader(View itemView) {
             super(itemView);
+
             totalFigure = (TextView) itemView.findViewById(R.id.totalfigure);
             Credittotal = (TextView) itemView.findViewById(R.id.credittotalfigure);
             Debittotal = (TextView) itemView.findViewById(R.id.debittotalfigure);
